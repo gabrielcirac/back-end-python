@@ -1,7 +1,7 @@
-print('Olá Mundo')
+print("Olá Mundo")
 
-print('Alterando um arquivo que já existe')
+print("Alterando um arquivo que já existe")
 
-print('Novo Teste')
+print("Novo Teste")
 
-print('Nova versão')
+print("Nova versão")
