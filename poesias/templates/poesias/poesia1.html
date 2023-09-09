@@ -1,0 +1,68 @@
+{% load i18n %}
+
+<div class="poetry poetry-list-item">
+        <div class="poetry-cover">
+
+            <img src="{{ poesia.cover.url }}" alt="Cover da Poesia">
+
+        </div>
+
+    <div class="poetry-title-container">
+        <h2 class="poetry-title">
+            {{poesia.title}}
+        </h2>
+    </div>
+
+    <div class="poetry-author">
+       
+            <span class="poetry-author-item">
+                <i class="fas fa-user"></i>
+                {{ poesia.author.first_name }}
+                {{ poesia.author.last_name }}
+            </span>
+        
+
+        <span class="poetry-author-item">
+            <i class="fas fa-calendar-alt"></i>
+            {{ poesia.created_at|date:"d/m/Y" }} às {{ poesia.created_at|date:"H:i" }}
+        </span>
+
+        {% if poesia.genre is not None %}
+            <span class="poetry-author-item">
+                    <i class="fas fa-bookmark"></i>
+                    <span>{{ poesia.genre.name }}</span>
+            </span>
+        {% endif %}
+    </div>
+
+    <div class="poetry-content">
+        <p>{{ poesia.full_text }}</p>
+    </div>
+
+    {% if is_detail_page is not True %}
+        <footer class="poetry-footer">
+            <a class="poetry-read-more button button-dark button-full-width">
+                <i class="fas fa-eye"></i>
+                <span>{% translate 'read more' %}...</span>
+            </a>
+        </footer>
+    {% endif %}
+
+    {% if is_detail_page is True %}
+        <div class="poetry-full-text">
+            {{ poetry.full_text|linebreaksbr }}
+            
+            {% if poetry.tags.all %}
+                <p>
+                    Tags:
+                    {% for tag in poetry.tags.all %}
+                        <a href="{% url 'poetries:tag' tag.slug %}">
+                            {{ tag.name }}
+                        </a>, 
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>

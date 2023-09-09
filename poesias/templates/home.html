@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha Página Home</title>
-</head>
-<body>
-    <h1>Bem-vindo à minha página Django! {{name}}</h1>
-    <p>Não se esqueça de adicionar o App ao projeto no arquivo Settings.py</p>
-</body>
-</html>
+{% load static %}
+{% include "base_templates/header.html" %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.movie').on('click', function () {
+            var movieId = $(this).data('id');
+            window.location.href = `/movie_detail/${movieId}/`; // ou a estrutura de URL que você definiu
+        });
+    });
+</script>
+
+
+<h1>Bem-vindo à minha página Django! {{name}}</h1>
+<p>Não se esqueça de adicionar o App ao projeto no arquivo Settings.py</p>
+
+
+<div class="movie" data-id="1">
+    <img src="{% static '/img/Filme_1.jpeg' %}" alt="Nome do Filme 1" ,>
+    <p>Nome do Filme 1</p>
+</div>
+<div class="movie" data-id="2">
+    <img src="{% static '/img/Filme_2.jpg' %}" alt="Nome do Filme 2" , style="width: 25%" ;>
+    <p>Nome do Filme 2</p>
+</div>
+{% include "base_templates/footer.html" %}
+<script src=" {% static '/js/main.js' %}"></script>

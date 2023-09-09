@@ -1,0 +1,16 @@
+{% extends 'base_templates/base.html' %}
+
+
+{% block content %}
+
+    <h1>Página de Poesias Geradas pela Factory</h1>
+    <main class="main-content-container">
+        <div class="main-content main-content-detail container">
+            {% for poesia in poesias %}
+                {% include '../poesias/poesia1.html' %}
+            {%  endfor %}
+        </div>
+    </main>
+
+{% endblock content %}
+

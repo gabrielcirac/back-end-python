@@ -1,0 +1,14 @@
+{% extends 'base_templates/base.html' %}
+
+
+{% block content %}
+
+    <h1>Bem-vindo à minha página de Poesias</h1>
+    <main class="main-content-container">
+        <div class="main-content main-content-detail container">
+            {% include '../poesias/poesia1.html' %}
+        </div>
+    </main>
+
+{% endblock content %}
+

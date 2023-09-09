@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FEPI</title>
+</head>
+<body>
+    <h1>Bem-vindo ao Mundo dos Filmes</h1>
+    
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- Exibe o pôster do filme -->
+                    <img src="{% static '/img/Filme_1.jpeg' %}" alt="{{ movie.title }}" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <!-- Exibe o título do filme -->
+                    <h2>{{ movie.title }}</h2>
+
+                    <!-- Exibe a data de lançamento -->
+                    <p><strong>Data de Lançamento:</strong> {{ movie.release_date }}</p>
+
+                    <!-- Exibe a sinopse -->
+                    <p>{{ movie.overview }}</p>
+
+                    <!-- Exibe a classificação -->
+                    <p><strong>Classificação:</strong> {{ movie.rating }} / 10</p>
+
+                    <!-- Exibe o gênero -->
+                    <p><strong>Gênero:</strong> {{ movie.genre }}</p>
+
+                    <!-- Talvez exiba o trailer se houver um disponível -->
+                    {% if movie.trailer_link %}
+                    <div>
+                        <a href="{{ movie.trailer_link }}" target="_blank">Assistir ao Trailer</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Talvez exiba informações adicionais como elenco, críticas, etc. -->
+
+        </div>
+
+{% endblock %}
+
+    
+
+</body>
+</html>
