@@ -1,4 +1,3 @@
-# arquivo: test_poesia_db.py
 import pytest
 from poesias.test_collection import PoesiaDB
 

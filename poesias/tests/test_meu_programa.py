@@ -30,6 +30,8 @@ def test_recitar():
     assert poema.recitar(1) == "Silencioso e branco como a bruma"
     assert poema.recitar(4) == "Verso não encontrado"
 
+# Arquivo: test_simple_functions.py
+
 
 def greet(name):
     return f"Hello, {name}"
@@ -39,18 +41,3 @@ def test_greet():
     assert greet("World") == "Hello, World"
     assert greet("") == "Hello, "
     assert greet(123) == "Hello, 123"
-
-
-# Arquivo: test_classes.py
-class Calculator:
-    def add(self, x, y):
-        return x + y
-
-
-def test_calculator():
-    calc = Calculator()
-
-    # Testando o método add
-    assert calc.add(1, 2) == 3
-    assert calc.add(-1, -1) == -2
-    assert calc.add(0, 0) == 0
