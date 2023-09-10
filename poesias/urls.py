@@ -3,10 +3,11 @@ from django.urls import path
 from poesias.views import home, fepi, movie_detail
 from poesias import views
 
+app_name = 'poesias'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', home, name="home"),
     path('fepi', fepi),
     path('movie_detail/<int:movie_id>/', movie_detail, name='movie_detail'),
 
