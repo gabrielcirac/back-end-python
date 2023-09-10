@@ -8,7 +8,7 @@ app_name = 'poesias'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
-    path('fepi', fepi),
+    path('fepi', fepi, name="fepi"),
     path('movie_detail/<int:movie_id>/', movie_detail, name='movie_detail'),
 
     # Extends
@@ -23,7 +23,7 @@ urlpatterns = [
     path('poema_list/', views.poema_list, name='poema_list'),
 
     # Passando parâmtros dinâmicamente
-    path('poemas/<int:poema_id>/', views.poema_text),
+    path('poemas/<int:poema_id>/', views.poema_text, name='poema_text'),
     path('poemas_din/', views.poema_din),
 
     # Categorias e tratamento e erro
