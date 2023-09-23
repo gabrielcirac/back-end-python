@@ -129,6 +129,6 @@ def search(request):
     ).order_by('-id')
 
     return render(request, 'search.html', {
-        'page_title': f'Busca por "{autor[0]}"',
-        'search_term': autor,
+        'first': f'Busca por "{autor[0]}"',
+        'authors': autor,
     })

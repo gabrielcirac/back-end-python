@@ -1,21 +1,29 @@
-{% block title %}{{ page_title }}{% endblock title %}
-
 <head>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css">
-    <title>Busca</title>
+    <title>{% block title %}{{ first }}{% endblock title %}</title>
 </head>
-
-
-
 
 <div class="search-section">
     <div class="wrapper">
         <form action="{% url 'poesias:search' %}" method="GET" class="search-form">
             <input type="search" name="query" placeholder="Buscar poesia..." required>
-            <button type="submit"><i class="fas fa-search"></i></button>
+            <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
         </form>
     </div>
 </div>
 
-
-{% block list %}{{ search_term }}{% endblock list %}
+{% block list %}
+<div class="authors-list">
+    {% if authors %}
+    <ul>
+        {% for author in authors %}
+        <li>
+            <h2>{{ author.name }}</h2>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Nenhum autor encontrado.</p>
+    {% endif %}
+</div>
+{% endblock list %}
