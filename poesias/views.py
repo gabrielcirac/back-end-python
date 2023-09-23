@@ -1,4 +1,4 @@
-from .models import Movie, Book
+from .models import Movie, Book, Author
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.http import HttpResponse, Http404
 from django.shortcuts import render
@@ -116,3 +116,19 @@ def user_view(request, username):
 
 def root_view(request):
     return HttpResponse("Estamos na Raiz 2. Porta 8000")
+
+
+# TDD
+
+def search(request):
+    query = request.GET.get('query', '').strip()
+
+    # Supondo que estamos buscando filmes pelo nome
+    autor = Author.objects.filter(
+        name__icontains=query
+    ).order_by('-id')
+
+    return render(request, 'search.html', {
+        'page_title': f'Busca por "{autor[0]}"',
+        'search_term': autor,
+    })

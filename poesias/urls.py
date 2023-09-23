@@ -37,5 +37,8 @@ urlpatterns = [
     # Autores e tratamento de erro
     path('poemas/autor/<int:author_id>',
          views.author, name='author_id'),
+    # TDD
+    path('search/',
+         views.search, name='search'),
 
 ]
