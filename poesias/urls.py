@@ -41,4 +41,7 @@ urlpatterns = [
     path('search/',
          views.search, name='search'),
 
+    # Form
+    path('register_view', views.register_view, name='register_view'),
+
 ]

@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+from poesias.forms import RegisterForm
 from .models import Movie, Book, Author
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.http import HttpResponse, Http404
@@ -132,3 +134,22 @@ def search(request):
         'first': f'Busca por "{autor[0]}"',
         'authors': autor,
     })
+
+
+# Forms
+
+
+def register_view(request):
+    if request.POST:
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            # processar dados se forem válidos
+            user = form.save(commit=False)
+            user.set_password(user.password)
+            user.save()
+            request.session['message'] = "Registro bem-sucedido!"
+            return redirect('/')
+    else:
+        form = RegisterForm()
+
+    return render(request, 'register_view.html', {'form': form})
