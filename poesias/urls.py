@@ -44,4 +44,11 @@ urlpatterns = [
     # Form
     path('register_view', views.register_view, name='register_view'),
 
+    # Login
+    path('login/', views.user_login_view, name='login'),
+    path('login_form/', views.form_login_view, name='login_form'),
+
+    # Logout
+    path('logout/', views.user_logout_view, name='logout'),
+
 ]

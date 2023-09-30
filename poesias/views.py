@@ -1,3 +1,8 @@
+from django.urls import reverse
+from django.contrib.auth import logout
+from .forms import LoginForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from poesias.forms import RegisterForm
 from .models import Movie, Book, Author
@@ -153,3 +158,53 @@ def register_view(request):
         form = RegisterForm()
 
     return render(request, 'register_view.html', {'form': form})
+
+
+# Login
+
+
+def user_login_view(request):
+    user = None
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        messages.success(request, "Logado com Sucesso")
+        return redirect('/')
+    else:
+        messages.error(request, "Usuário ou Senha Invalidos")
+    return render(request, 'login_2.html')
+
+
+def form_login_view(request):
+    user = None
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Logado com Sucesso")
+                return redirect('/')
+            else:
+                messages.error(request, "Usuário ou Senha Inválidos")
+
+    else:
+        form = LoginForm()
+
+    context = {'form': form}
+    return render(request, 'login_3.html', context)
+
+
+def user_logout_view(request):
+    logout(request)
+    # Após efetuar o logout, redireciona o usuário para a página de login ou homepage
+    # Adiciona uma mensagem de sucesso
+    messages.success(request, "Deslogado com sucesso!")
+    return redirect(reverse('poesias:login_form'))

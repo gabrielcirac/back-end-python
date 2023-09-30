@@ -7,8 +7,11 @@ from django import forms
 from django.core.exceptions import ValidationError
 
 
+from django.core.exceptions import ValidationError
+import re
+
+
 class RegisterForm(forms.ModelForm):
-    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
@@ -30,3 +33,18 @@ class RegisterForm(forms.ModelForm):
             )
 
         return email
+
+    def validate_complex_password(value):
+        if not re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)', value):
+            raise ValidationError(
+                "A senha deve conter uma letra maiúscula, uma letra minúscula e um número.")
+
+    password = forms.CharField(widget=forms.PasswordInput(), validators=[
+                               validate_complex_password])
+
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Username", max_length=64, widget=forms.TextInput(
+        attrs={'class': 'form-control'}))
+    password = forms.CharField(
+        label="Password", widget=forms.PasswordInput(attrs={'class': 'form-control'}))

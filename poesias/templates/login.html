@@ -1,0 +1,12 @@
+{% extends 'base_templates/header.html' %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <label>Username:</label>
+    <input type="text" name="username">
+    <label>Password:</label>
+    <input type="password" name="password">
+    <input type="submit" value="Login">
+</form>
+{% endblock content %}

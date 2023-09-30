@@ -12,6 +12,11 @@
     });
 </script>
 
+<form method="post" action="{% url 'poesias:logout' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Logout</button>
+</form>
+
 
 <h1>Bem-vindo à minha página Django! {{name}}</h1>
 <p>Não se esqueça de adicionar o App ao projeto no arquivo Settings.py</p>
