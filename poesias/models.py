@@ -1,5 +1,7 @@
 # models.py
 
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -47,3 +49,14 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class CustomUser(AbstractUser):
+    username = models.CharField(max_length=50, default='default_username')
+    email = models.EmailField(unique=True, max_length=255)
+    # Armazenado criptografado pelo Django
+    password = models.CharField(max_length=255)
+
+    groups = models.ManyToManyField(Group)
+
+    user_permissions = models.ManyToManyField(Permission)

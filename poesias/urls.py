@@ -51,4 +51,7 @@ urlpatterns = [
     # Logout
     path('logout/', views.user_logout_view, name='logout'),
 
+    # Register E-mail
+    path('register_email/', views.register_email_view, name='register_email'),
+
 ]

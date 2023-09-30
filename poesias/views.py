@@ -1,3 +1,4 @@
+from .forms import RegistrationFormEmail
 from django.urls import reverse
 from django.contrib.auth import logout
 from .forms import LoginForm
@@ -201,6 +202,8 @@ def form_login_view(request):
     context = {'form': form}
     return render(request, 'login_3.html', context)
 
+# Logout
+
 
 def user_logout_view(request):
     logout(request)
@@ -208,3 +211,28 @@ def user_logout_view(request):
     # Adiciona uma mensagem de sucesso
     messages.success(request, "Deslogado com sucesso!")
     return redirect(reverse('poesias:login_form'))
+
+
+def register_email_view(request):
+    if request.method == "POST":
+        form = RegistrationFormEmail(request.POST)
+
+        if form.is_valid():
+            # Não salvar no banco de dados ainda
+            user = form.save(commit=False)
+            # Criptografa a senha antes de salvar
+            user.set_password(form.cleaned_data['password'])
+            user.save()  # Agora, salva o usuário no banco de dados
+            login(request, user)  # Autentica o usuário
+            messages.success(request, "Registrado e logado com sucesso!")
+            return redirect('/')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
+
+    else:
+        form = RegistrationFormEmail()
+
+    context = {'form': form}
+    return render(request, 'register_email.html', context)

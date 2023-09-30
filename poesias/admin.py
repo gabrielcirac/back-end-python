@@ -1,13 +1,16 @@
 from django.contrib import admin
-from .models import Category, Author, Book
+from .models import Category, Author, Book, CustomUser
 from django.utils.html import mark_safe
 ''''
 O @admin.register(ModelName) é um decorador em Python que registra o modelo 
 (no exemplo, Category e Author) no site administrativo do Django. 
 É uma forma mais concisa e moderna de registrar modelos no Django Admin, comparada ao método tradicional.'''
 
+admin.site.register(CustomUser)
 
 # Register your models here.
+
+
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name',)
@@ -29,4 +32,3 @@ class BookAdmin(admin.ModelAdmin):
 
     def cover_preview(self, obj):
         return mark_safe(f'<img src="{obj.cover.url}" width="100" />')
-
