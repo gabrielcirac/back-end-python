@@ -54,4 +54,7 @@ urlpatterns = [
     # Register E-mail
     path('register_email/', views.register_email_view, name='register_email'),
 
+    # Dashboard
+    path('dashboard/', views.author_dashboard, name='author_dashboard'),
+
 ]

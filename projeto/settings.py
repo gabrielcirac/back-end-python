@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     "poesias",
 ]
 
+AUTH_USER_MODEL = 'poesias.CustomUser'
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",

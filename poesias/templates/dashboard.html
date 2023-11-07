@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Author Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ author.name }}!</h1>
+    <h2>Seus Livros:</h2>
+    <ul>
+        {% for book in books %}
+        <li>{{ book.title }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

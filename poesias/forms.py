@@ -1,5 +1,6 @@
 # models.py (Este arquivo é parte do Django,
 # em django.contrib.auth.models
+from .models import Book
 from .models import CustomUser
 from django.contrib.auth.models import User
 
@@ -77,3 +78,40 @@ class RegistrationFormEmail(forms.ModelForm):
             raise forms.ValidationError("As senhas não correspondem.")
 
         return cleaned_data
+
+
+class RegistrationFormEmail_2(forms.ModelForm):
+
+    def validate_complex_password(value):
+        if not re.match(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)', value):
+            raise ValidationError(
+                "A senha deve conter uma letra maiúscula, uma letra minúscula e um número.")
+
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput(), validators=[
+                               validate_complex_password])
+    password_confirmation = forms.CharField(
+        widget=forms.PasswordInput(), label="Confirmação de Senha")
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'email', 'password']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password = cleaned_data.get("password")
+        password_confirmation = cleaned_data.get("password_confirmation")
+
+        if password != password_confirmation:
+            raise forms.ValidationError("As senhas não correspondem.")
+
+        return cleaned_data
+
+
+# forms.py
+
+class BookForm(forms.ModelForm):
+    class Meta:
+        model = Book
+        fields = ['title', 'author', 'categories',
+                  'published_date', 'isbn', 'cover']

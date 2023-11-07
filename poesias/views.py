@@ -1,4 +1,6 @@
-from .forms import RegistrationFormEmail
+from django.shortcuts import render, redirect
+from .models import Book
+from .forms import RegistrationFormEmail, RegistrationFormEmail_2
 from django.urls import reverse
 from django.contrib.auth import logout
 from .forms import LoginForm
@@ -195,6 +197,7 @@ def form_login_view(request):
                 return redirect('/')
             else:
                 messages.error(request, "Usuário ou Senha Inválidos")
+                return redirect(reverse('poesias:register_email'))
 
     else:
         form = LoginForm()
@@ -215,7 +218,7 @@ def user_logout_view(request):
 
 def register_email_view(request):
     if request.method == "POST":
-        form = RegistrationFormEmail(request.POST)
+        form = RegistrationFormEmail_2(request.POST)
 
         if form.is_valid():
             # Não salvar no banco de dados ainda
@@ -232,7 +235,19 @@ def register_email_view(request):
                     messages.error(request, error)
 
     else:
-        form = RegistrationFormEmail()
+        form = RegistrationFormEmail_2()
 
     context = {'form': form}
     return render(request, 'register_email.html', context)
+
+
+def author_dashboard(request):
+    # Garantindo que o usuário está autenticado
+    if not request.user.is_authenticated:
+        # Redirecione para a página de login ou outra página apropriada
+        return redirect(reverse('poesias:register_email'))
+
+    # Tente obter a instância Author relacionada ao usuário
+    author_instance = request.user.author
+    books = Book.objects.filter(author=author_instance)
+    return render(request, 'dashboard_2.html', {'books': books, 'autor': author_instance})

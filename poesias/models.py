@@ -15,6 +15,14 @@ class Movie(models.Model):
     trailer_link = models.URLField(blank=True, null=True)
 
 
+class CustomUser(AbstractUser):
+    username = models.CharField(
+        max_length=50, unique=True)
+    email = models.EmailField(unique=True, max_length=255)
+    # Armazenado criptografado pelo Django
+    groups = models.ManyToManyField(Group)
+
+
 # Definindo um modelo de Categoria
 class Category(models.Model):
     name = models.CharField(max_length=100)
@@ -27,9 +35,12 @@ class Category(models.Model):
 
 class Author(models.Model):
     name = models.CharField(max_length=100)
+    user = models.OneToOneField(
+        CustomUser, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
+
 
 # Definindo um modelo de Livro com relacionamento ManyToMany com Categoria e Autor
 
@@ -49,14 +60,3 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class CustomUser(AbstractUser):
-    username = models.CharField(max_length=50, default='default_username')
-    email = models.EmailField(unique=True, max_length=255)
-    # Armazenado criptografado pelo Django
-    password = models.CharField(max_length=255)
-
-    groups = models.ManyToManyField(Group)
-
-    user_permissions = models.ManyToManyField(Permission)
